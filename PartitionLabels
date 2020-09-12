@@ -1,0 +1,38 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+Simple solution using 2 maps. Firstly make a map with the frequency of all the characters of the string s. Then iterate over the characters of the string and maintaining a new map. At every iteration check if the value of all the keys present in inner map is same as that of main map.
+*/
+
+class Solution {
+public:
+    bool mcomp(map<char,int> m1, map<char,int> m2) {
+        for(auto i = m1.begin(); i != m1.end(); i++) {
+            if(i->second != m2[i->first])
+                return false;
+        }
+        return true;
+    }
+    
+    vector<int> partitionLabels(string s) {
+        map<char,int> m1,m2;
+        for(char c: s){
+            m2[c]++;
+        }
+        vector<int> v;
+        int i = 0;
+        for(char c: s){
+            m1[c]++;
+            i++;
+            if(mcomp(m1,m2)){
+                v.push_back(i);
+                m1.clear();
+                i = 0;
+            }
+        }
+        return v;
+    }
+};

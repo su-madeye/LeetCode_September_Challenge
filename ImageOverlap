@@ -1,0 +1,43 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+*/
+
+class Solution {
+public:
+    int largestOverlap(vector<vector<int>>& A, vector<vector<int>>& B) {
+        vector<pair<int,int>> v1,v2;
+        for(int i = 0; i < A.size(); i++){
+            for(int j = 0; j < A[i].size(); j++){
+                if(A[i][j] == 1){
+                    v1.push_back(make_pair(i,j));
+                }
+            }
+        }
+        for(int i = 0; i < B.size(); i++){
+            for(int j = 0; j < B[i].size(); j++){
+                if(B[i][j] == 1){
+                    v2.push_back(make_pair(i,j));
+                }
+            }
+        }
+        map<pair<int,int>,int> m;
+        for(int i = 0; i < v1.size(); i++) {
+            int x1 = v1[i].first;
+            int y1 = v1[i].second;
+            for(int j = 0; j < v2.size(); j++){
+                int x2 = v2[j].first;
+                int y2 = v2[j].second;
+                m[{(x2-x1),(y2-y1)}]++;
+            }
+        }
+        int t = 0;
+        for(auto it = m.begin(); it != m.end(); it++) {
+            t = max(t,(int)(it->second));
+        }
+        return t;
+    }
+};

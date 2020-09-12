@@ -1,0 +1,29 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+
+*/
+
+class Solution {
+public:
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        multiset<int> s;
+        int n = nums.size();
+        for(int i = 0; i< n; i++){
+         auto x = s.lower_bound(nums[i]);
+         if(x != s.end() && *x <= nums[i] + t ) return true;
+            if(x != s.begin()){
+               x = next(x, -1);
+               if(*x + t >= nums[i])return true;
+            }
+            s.insert(nums[i]);
+            if(i >= k){
+               s.erase(nums[i - k]);
+            }
+        }
+        return false;
+    }
+};

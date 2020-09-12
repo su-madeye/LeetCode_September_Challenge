@@ -1,0 +1,41 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+Iterate through the strings and see if char in both the string at same position is same or not. If same increase bull and change s[i] and g[i] to some random char say a. Again iterate over g for all char in s and find for cows. 
+*/
+
+class Solution {
+public:
+    string getHint(string s, string g) {
+        int b = 0;
+        int n = s.size();
+        for(int i = 0; i < n; i++){
+            if(s[i] == g[i]){
+                b++;
+                s[i] = 'a';
+                g[i] = 'a';
+            }
+        }
+        int c = 0;
+        for(int i = 0; i < n; i++){
+            if(s[i] != 'a')
+                for(int j = 0; j < n; j++){
+                    if(s[i] == g[j]){
+                        c++;
+                        g[j] = 'a';
+                        break;
+                    }
+                }
+        }
+        string t = "";
+        t += to_string(b);
+        t += 'A';
+        string y = "";
+        y += to_string(c);
+        y += 'B';
+        return t+y;
+    }
+};

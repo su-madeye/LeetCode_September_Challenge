@@ -1,0 +1,66 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+Do a top down traversal in the tree to get all the binary strings and store them in a vector. For each string in vector form the corresponding binary number and add it to sum.
+*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    vector<string> arr;
+    
+    void Path(int path[], int len) {
+        string s = "";
+        for(int i = 0; i < len; i++){
+            if(path[i] == 1)
+                s += "1";
+            else 
+                s += "0";
+        }
+        arr.push_back(s);
+    }
+    
+    
+    void getPath(TreeNode* root, int path[], int pathlen) {
+        if (root == NULL)
+            return;
+        path[pathlen] = root->val;
+        pathlen++;
+        if(root->left == NULL && root->right == NULL){
+            Path(path,pathlen);
+        }
+        getPath(root->left,path,pathlen);
+        getPath(root->right,path,pathlen);
+    }
+    
+    int sumRootToLeaf(TreeNode* root) {
+        int path[1000];   
+        getPath(root,path,0);
+        int sum = 0;
+        for(int i = 0; i < arr.size(); i++){
+            string s = arr[i];
+            reverse(s.begin(),s.end());
+            for(int j = 0; j < s.size(); j++){
+                if(s[j] == '1'){
+                    sum += pow(2,j);
+                }
+            }
+        }
+        return sum;
+    }
+};
+

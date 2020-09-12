@@ -1,0 +1,40 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+We try all for substring of size t where t n%t == 0. On repeating the substring(0,t) n/t time we get the resultant string and if that is equal to the original string, we return true.
+
+*/
+
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        if(s.size() <= 1)
+            return 0;
+        map<char,int> m;
+        for(char c: s)
+            m[c]++;
+        if(m.size() == 1)
+            return 1;
+        int t = 2;
+        int n = s.size();
+        while(t <= n/2){
+            if(n%t == 0){
+                int x = n/t;
+                string tmp = s.substr(0,x);
+                string ans = "";
+                for(int i = 0; i < t; i++)
+                    ans += tmp;
+                if(ans == s){
+                    cout << ans << '\n';
+                    return 1;
+                }
+            }
+            t++;
+        }
+        return false;
+    }
+};
+

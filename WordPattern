@@ -1,0 +1,46 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+Simple solution using 2 maps comparision.
+*/
+
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        string t = "";
+        vector<string> v;
+        for(char c: str){
+            if(c == ' '){
+                v.push_back(t);
+                t = "";
+            }
+            else{
+                t += c;
+            }
+        }
+        v.push_back(t);
+        if(v.size() != pattern.size())
+            return 0;
+        map<char,string> m,m2;
+        for(int i = 0; i < pattern.size(); i++){
+            if(m[pattern[i]] == ""){
+                m[pattern[i]] = v[i];
+            }
+            else{
+                if(m[pattern[i]] != v[i])
+                    return 0;
+            }
+        }
+        m2 = m;
+        for(auto i = m.begin(); i != m.end(); i++) {
+            for(auto j = m2.begin(); j != m2.end(); j++){
+                if(i->second == j->second && i->first != j->first)
+                    return 0;
+            }
+        }
+        return 1;
+    }
+};

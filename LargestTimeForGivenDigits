@@ -1,0 +1,53 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+As total possible time is (60*24) we can definitely traverse through all the time and check if they can be formed from the given digits. As we want maximum time we iterate from 23:59. 
+
+*/
+
+class Solution {
+public:
+    
+    string checktime(int hr, int min, map<int,int> m) {
+        if(hr > 23 || min > 59)
+            return "";
+        int a[4];
+        a[0] = hr/10;                                           // store time in array form 
+        a[1] = hr%10;
+        a[2] = min/10;
+        a[3] = min%10;
+        for(int i = 0; i < 4; i++) {
+            if(m[a[i]] == 0)                                    // compare array with the map we passed
+                return "";
+            m[a[i]]--;
+        }
+        string s = "";
+        s.push_back('0' + a[0]);                                // form string if possible
+        s.push_back('0' + a[1]);
+        s.push_back(':');
+        s.push_back('0' + a[2]);
+        s.push_back('0' + a[3]);
+        return s;
+    }
+    
+    string largestTimeFromDigits(vector<int>& A) {
+        string s = "";
+        map<int,int> m;
+        for(int i: A)
+            m[i]++;                                             // store the digits in a map
+        bool flag = 0;
+        for(int hr = 23; hr >= 0; hr--){
+            for(int min = 59; min >= 0; min--){                 // check for every time from 23:59 --> 00:00
+                s = checktime(hr,min,m);                        // 
+                if(s != "")
+                    flag = 1;
+                if(flag)
+                    return s;    
+            }
+        }
+        return "";
+    }
+};

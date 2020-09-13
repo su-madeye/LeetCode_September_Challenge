@@ -1,0 +1,25 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3445/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+
+*/
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int M = nums[0];
+        int m= nums[0];
+        int P = nums[0];
+        for(int i = 1; i < nums.size(); i++) {
+            if(nums[i] < 0)
+                swap(M,m);
+            M = max(M*nums[i], nums[i]);
+            m = min(m*nums[i], nums[i]);
+            P = max(P,M);
+        }
+        return P;
+    }
+};

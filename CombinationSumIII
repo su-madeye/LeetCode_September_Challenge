@@ -1,0 +1,36 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/555/week-2-september-8th-september-14th/3459/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+
+*/
+
+class Solution {
+public:
+    
+    vector<vector<int>> ans;
+    vector<int>v;
+    void findcombo(int k, int sum, int l) {
+        if(k == 0 && sum == 0){
+            ans.push_back(v);
+            return;
+        }
+        if(k < 0 || sum < 0)
+            return ;
+        for(int i = l; i <= 9; i++){
+            auto it = find(v.begin(),v.end(),i);
+            if(it == v.end()){
+                v.push_back(i);
+                findcombo(k-1,sum-i,i+1);
+                v.pop_back();
+            }
+        }
+    }
+    
+    vector<vector<int>> combinationSum3(int k, int n) {
+        findcombo(k,n,1);
+        return ans;
+    }
+};

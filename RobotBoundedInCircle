@@ -1,0 +1,33 @@
+/*
+https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/556/week-3-september-15th-september-21st/
+
+c++ solution
+Author: Prakhar Tibrewal
+
+*/
+
+class Solution {
+public:
+    bool isRobotBounded(string instructions) {
+        instructions += instructions;
+        instructions += instructions;
+        int x = 0;
+        int A[4] = {0,0,0,0};
+        int k = 0;
+        for(char c : instructions)
+            if(c == 'L') {
+                k += 1;
+                k = k%4;
+            }
+            else if(c == 'R'){
+                k = k % 4;
+                if(k == 0)
+                    k = 3;
+                else
+                    k--;
+            }
+            else
+                A[k]++;
+        return A[0] == A[2] && A[1] == A[3] ? true : false;
+    }
+};
